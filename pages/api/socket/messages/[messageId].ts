@@ -1,8 +1,9 @@
-import { NextApiResponseServerIo } from "@/types";
 import { NextApiRequest } from "next";
 import { MemberRole } from "@prisma/client";
 
+import { NextApiResponseServerIo } from "@/types";
 import { currentProfilePages } from "@/lib/current-profile-pages";
+import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
 export default async function handler(
@@ -64,7 +65,7 @@ export default async function handler(
     );
 
     if (!member) {
-      return res.status(404).json({ error: "Member not found" });
+      return res.status(404).json({ error: "member not found" });
     }
 
     let message = await db.message.findFirst({
@@ -101,7 +102,7 @@ export default async function handler(
         },
         data: {
           fileUrl: null,
-          content: "This message has been deleted.",
+          content: "This message has been deleted",
           deleted: true,
         },
         include: {
