@@ -6,13 +6,13 @@ import { Member, Message, Profile } from "@prisma/client";
 import { Loader2, ServerCrash } from "lucide-react";
 
 import { useChatQuery } from "@/hooks/use-chat-query";
-
-import { ChatWelcome } from "./chat-welcome";
-import { ChatItem } from "./chat-item";
 import { useChatSocket } from "@/hooks/use-chat-socket";
 import { useChatScroll } from "@/hooks/use-chat-scroll";
 
-const DATE_FORMAT = "d MMMM yyyy HH:mm";
+import { ChatWelcome } from "./chat-welcome";
+import { ChatItem } from "./chat-item";
+
+const DATE_FORMAT = "dd MM yyyy, HH:mm";
 
 type MessageWithMemberWithProfile = Message & {
   member: Member & {
@@ -44,7 +44,7 @@ export const ChatMessages = ({
   type,
 }: ChatMessagesProps) => {
   const queryKey = `chat:${chatId}`;
-  const addKey = `chat:${chatId}`;
+  const addKey = `chat:${chatId}:messages`;
   const updateKey = `chat:${chatId}:messages:update`;
 
   const chatRef = useRef<ElementRef<"div">>(null);
@@ -95,7 +95,7 @@ export const ChatMessages = ({
       {hasNextPage && (
         <div className="flex justify-center">
           {isFetchingNextPage ? (
-            <Loader2 className="h-5 w-55 text-zinc-50 animate-spin my-4" />
+            <Loader2 className="h-6 w-6 text-zinc-500 animate-spin my-4" />
           ) : (
             <button
               onClick={() => fetchNextPage()}

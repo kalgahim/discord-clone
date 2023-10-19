@@ -6,7 +6,7 @@ import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, Profile } from "@prisma/client";
-import { Edit, FilesIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
+import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
@@ -78,7 +78,7 @@ export const ChatItem = ({
 
     window.addEventListener("keydown", handleKeyDown);
 
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keyDown", handleKeyDown);
   }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -110,7 +110,7 @@ export const ChatItem = ({
     form.reset({
       content: content,
     });
-  }, [form, content]);
+  }, [content]);
 
   const fileType = fileUrl?.split(".").pop();
 
@@ -150,7 +150,7 @@ export const ChatItem = ({
           </div>
           {isImage && (
             <a
-              href="fileUrl"
+              href={fileUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
@@ -165,7 +165,7 @@ export const ChatItem = ({
           )}
           {isPDF && (
             <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
-              <FilesIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
+              <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
               <a
                 href={fileUrl}
                 target="_blank"
@@ -228,7 +228,7 @@ export const ChatItem = ({
         </div>
       </div>
       {canDeleteMessage && (
-        <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+        <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
           {canEditMessage && (
             <ActionTooltip label="Edit">
               <Edit
